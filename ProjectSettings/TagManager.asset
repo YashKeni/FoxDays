@@ -41,3 +41,18 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: Background
+    uniqueID: 2438759627
+    locked: 0
+  - name: Middle
+    uniqueID: 1980709441
+    locked: 0
+  - name: Cave
+    uniqueID: 835511073
+    locked: 0
+  - name: Platforms
+    uniqueID: 142335991
+    locked: 0
+  - name: Player
+    uniqueID: 1153280497
+    locked: 0
