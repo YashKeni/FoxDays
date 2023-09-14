@@ -13,8 +13,9 @@ GameObject:
   - component: {fileID: 2476110703847433670}
   - component: {fileID: 98484774312121754}
   - component: {fileID: 5345877725682616407}
-  - component: {fileID: 6274057631520241803}
   - component: {fileID: 6417041485624338931}
+  - component: {fileID: 6274057631520241803}
+  - component: {fileID: 789724474906346544}
   m_Layer: 0
   m_Name: Foxy
   m_TagString: Untagged
@@ -153,22 +154,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   runSpeed: 5
---- !u!70 &6274057631520241803
-CapsuleCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2476110703847433665}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: -0.06970215, y: -0.40825754}
-  m_Size: {x: 0.688364, y: 1.2459849}
-  m_Direction: 0
+  jumpSpeed: 15
 --- !u!50 &6417041485624338931
 Rigidbody2D:
   serializedVersion: 4
@@ -184,9 +170,51 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDrag: 0
   m_AngularDrag: 0.05
-  m_GravityScale: 1
+  m_GravityScale: 5
   m_Material: {fileID: 0}
-  m_Interpolate: 1
+  m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 1
   m_Constraints: 4
+--- !u!70 &6274057631520241803
+CapsuleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2476110703847433665}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 6200000, guid: 87de808696f33be47b6c87c9b568a709, type: 2}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: -0.038330078, y: -0.3214531}
+  m_Size: {x: 0.9599323, y: 1.3549719}
+  m_Direction: 0
+--- !u!61 &789724474906346544
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2476110703847433665}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: -0.026028633, y: -0.94446397}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 2.0625, y: 2}
+    newSize: {x: 2.0625, y: 2}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 0.7461996, y: 0.11107206}
+  m_EdgeRadius: 0
