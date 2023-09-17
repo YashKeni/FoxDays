@@ -13,8 +13,8 @@ TagManager:
   - UI
   - Ground
   - Ladder
-  - 
-  - 
+  - Player
+  - Background
   - 
   - 
   - 
@@ -41,19 +41,25 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
-  - name: Background
+  - name: Background Rule
     uniqueID: 2438759627
     locked: 0
-  - name: Middle
+  - name: Middle Rule
     uniqueID: 1980709441
     locked: 0
-  - name: Cave
+  - name: Cave Rule
     uniqueID: 835511073
     locked: 0
-  - name: Platforms
+  - name: Cave
+    uniqueID: 1390997195
+    locked: 0
+  - name: Platforms Rule
     uniqueID: 142335991
     locked: 0
-  - name: Ladder
+  - name: Platform
+    uniqueID: 779585003
+    locked: 0
+  - name: Ladder Rule
     uniqueID: 1629948007
     locked: 0
   - name: Player
