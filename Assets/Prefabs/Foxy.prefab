@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 6417041485624338931}
   - component: {fileID: 6274057631520241803}
   - component: {fileID: 789724474906346544}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Foxy
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -98,7 +98,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 1153280497
-  m_SortingLayer: 5
+  m_SortingLayer: 8
   m_SortingOrder: 0
   m_Sprite: {fileID: -731670543, guid: b289e13c4845e764795d4d1a91469aa8, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -154,7 +154,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   runSpeed: 5
-  jumpSpeed: 15
+  jumpSpeed: 17
+  climbSpeed: 5
 --- !u!50 &6417041485624338931
 Rigidbody2D:
   serializedVersion: 4
@@ -172,7 +173,7 @@ Rigidbody2D:
   m_AngularDrag: 0.05
   m_GravityScale: 5
   m_Material: {fileID: 0}
-  m_Interpolate: 0
+  m_Interpolate: 1
   m_SleepingMode: 1
   m_CollisionDetection: 1
   m_Constraints: 4
