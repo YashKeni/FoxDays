@@ -92,4 +92,12 @@ public class Player : MonoBehaviour
             myRigidBody.velocity += new Vector2(0f, jumpSpeed);
         }
     }
+
+    void OnCrouch(InputValue value)
+    {
+        if (value.isPressed)
+        {
+            animator.SetBool("isCrouching", true);
+        }
+    }
 }
