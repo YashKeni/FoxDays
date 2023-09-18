@@ -113,10 +113,14 @@ TextureImporter:
         width: 15
         height: 13
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
-      physicsShape: []
+      physicsShape:
+      - - {x: -6.5, y: 5.5}
+        - {x: -6.5, y: -5.5}
+        - {x: 6.5, y: -5.5}
+        - {x: 6.5, y: 5.5}
       tessellationDetail: 0
       bones: []
       spriteID: 476f3d00ff7519646bae4ad1c0442c2e
@@ -134,10 +138,14 @@ TextureImporter:
         width: 15
         height: 13
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
-      physicsShape: []
+      physicsShape:
+      - - {x: -6.5, y: 5.5}
+        - {x: -6.5, y: -5.5}
+        - {x: 6.5, y: -5.5}
+        - {x: 6.5, y: 5.5}
       tessellationDetail: 0
       bones: []
       spriteID: 74cda55b5acc35544ba7a387983a9c3e
@@ -155,10 +163,14 @@ TextureImporter:
         width: 15
         height: 13
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
-      physicsShape: []
+      physicsShape:
+      - - {x: -6.5, y: 5.5}
+        - {x: -6.5, y: -5.5}
+        - {x: 6.5, y: -5.5}
+        - {x: 6.5, y: 5.5}
       tessellationDetail: 0
       bones: []
       spriteID: 043e99b64d84adc4f9219b11da6762c7
@@ -176,10 +188,14 @@ TextureImporter:
         width: 15
         height: 13
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
-      physicsShape: []
+      physicsShape:
+      - - {x: -6.5, y: 5.5}
+        - {x: -6.5, y: -5.5}
+        - {x: 6.5, y: -5.5}
+        - {x: 6.5, y: 5.5}
       tessellationDetail: 0
       bones: []
       spriteID: 65352a441b52ea84e9ace1601acf0fb4
@@ -197,10 +213,14 @@ TextureImporter:
         width: 15
         height: 13
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
-      physicsShape: []
+      physicsShape:
+      - - {x: -6.5, y: 5.5}
+        - {x: -6.5, y: -5.5}
+        - {x: 6.5, y: -5.5}
+        - {x: 6.5, y: 5.5}
       tessellationDetail: 0
       bones: []
       spriteID: ffa9094c67998a04c963f03922d9c4ab
