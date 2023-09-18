@@ -39,7 +39,6 @@ public class Player : MonoBehaviour
         ClimbLadder();
     }
 
-
     void Run()
     {
         Vector2 playerVelocity = new(moveInput.x * runSpeed, myRigidBody.velocity.y);
@@ -95,9 +94,11 @@ public class Player : MonoBehaviour
 
     void OnCrouch(InputValue value)
     {
+        if (!footCollider.IsTouchingLayers(LayerMask.GetMask("Ground"))) { return; }
+
         if (value.isPressed)
         {
-            animator.SetBool("isCrouching", true);
+            Debug.Log(value.isPressed);
         }
     }
 }
