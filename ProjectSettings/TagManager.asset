@@ -15,7 +15,7 @@ TagManager:
   - Ladder
   - Player
   - Background
-  - 
+  - Enemies
   - 
   - 
   - 
@@ -59,8 +59,11 @@ TagManager:
   - name: Platform
     uniqueID: 779585003
     locked: 0
-  - name: Ladder Rule
+  - name: Interactable
     uniqueID: 1629948007
+    locked: 0
+  - name: Enemies
+    uniqueID: 4182588895
     locked: 0
   - name: Player
     uniqueID: 1153280497
