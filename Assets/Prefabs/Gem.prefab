@@ -10,10 +10,11 @@ GameObject:
   m_Component:
   - component: {fileID: 5525528435019570404}
   - component: {fileID: 5525528435019570406}
+  - component: {fileID: 3244661830324543756}
   - component: {fileID: 5525528435019570407}
   - component: {fileID: 2094752661108942381}
-  - component: {fileID: 7927207528633114753}
-  m_Layer: 0
+  - component: {fileID: 8593537958966567731}
+  m_Layer: 11
   m_Name: Gem
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -87,6 +88,19 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &3244661830324543756
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5525528435019570405}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cb0bddf7a1954274a85b29e928cd26e6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gemPickupSFX: {fileID: 8300000, guid: fe8fa26f152f02f4cae9a03d5dccd3f5, type: 3}
 --- !u!95 &5525528435019570407
 Animator:
   serializedVersion: 5
@@ -116,7 +130,7 @@ Rigidbody2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5525528435019570405}
-  m_BodyType: 0
+  m_BodyType: 2
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
@@ -129,8 +143,8 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!66 &7927207528633114753
-CompositeCollider2D:
+--- !u!58 &8593537958966567731
+CircleCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -139,15 +153,9 @@ CompositeCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
-  m_GeometryType: 0
-  m_GenerationType: 0
-  m_EdgeRadius: 0
-  m_ColliderPaths: []
-  m_CompositePaths:
-    m_Paths: []
-  m_VertexDistance: 0.0005
-  m_OffsetDistance: 0.00005
+  serializedVersion: 2
+  m_Radius: 0.41
