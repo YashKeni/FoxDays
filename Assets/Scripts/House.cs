@@ -1,17 +1,18 @@
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class House : MonoBehaviour
 {
-    // Start is called before the first frame update
+    bool hasEntered = false;
+
+    LevelManager levelManager;
+
     void Start()
     {
-
+        levelManager = FindObjectOfType<LevelManager>();
     }
 
-    // Update is called once per frame
     void Update()
     {
 
@@ -19,7 +20,10 @@ public class House : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other != null && other is CapsuleCollider2D)
-            Debug.Log("Level Finished");
+        if (other != null && other is CapsuleCollider2D && !hasEntered)
+        {
+            levelManager.LoadNextLevel();
+            hasEntered = true;
+        }
     }
 }

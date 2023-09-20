@@ -1,9 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 
 public class Player : MonoBehaviour
 {
@@ -11,14 +11,17 @@ public class Player : MonoBehaviour
     [SerializeField] float runSpeed = 5f;
     [SerializeField] float jumpSpeed = 2f;
     [SerializeField] float climbSpeed = 5f;
+    [SerializeField] Vector2 deathFling = new Vector2(0f, 20f);
 
     float gravScaleAtStart;
+    bool isAlive = true;
 
     Vector2 moveInput;
     Rigidbody2D myRigidBody;
     Animator animator;
     CapsuleCollider2D bodyCollider;
     BoxCollider2D footCollider;
+    GameSession gameSession;
 
     // Start is called before the first frame update
     void Start()
@@ -28,15 +31,19 @@ public class Player : MonoBehaviour
         bodyCollider = GetComponent<CapsuleCollider2D>();
         footCollider = GetComponent<BoxCollider2D>();
 
+        gameSession = FindObjectOfType<GameSession>();
+
         gravScaleAtStart = myRigidBody.gravityScale;
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (!isAlive) { return; }
         Run();
         FlipSideWays();
         ClimbLadder();
+        Die();
     }
 
     void Run()
@@ -75,30 +82,40 @@ public class Player : MonoBehaviour
         animator.SetBool("isClimbing", hasVerticalSpeed);
     }
 
+    void Die()
+    {
+        if (bodyCollider.IsTouchingLayers(LayerMask.GetMask("Enemies")))
+        {
+            isAlive = false;
+            animator.SetTrigger("die");
+            myRigidBody.velocity = deathFling;
+
+            myRigidBody.constraints = RigidbodyConstraints2D.FreezePositionX;
+            myRigidBody.constraints = RigidbodyConstraints2D.FreezeRotation;
+
+            bodyCollider.enabled = false;
+            footCollider.enabled = false;
+
+            gameSession.ProcessPlayerDeath();
+        }
+    }
+
     // ----------------------------------------------- Player Input Methods ----------------------------------------------
 
     void OnMove(InputValue value)
     {
+        if (!isAlive) { return; }
         moveInput = value.Get<Vector2>();
     }
 
     void OnJump(InputValue value)
     {
+        if (!isAlive) { return; }
         if (!footCollider.IsTouchingLayers(LayerMask.GetMask("Ground"))) { return; }
 
         if (value.isPressed)
         {
             myRigidBody.velocity += new Vector2(0f, jumpSpeed);
-        }
-    }
-
-    void OnCrouch(InputValue value)
-    {
-        if (!footCollider.IsTouchingLayers(LayerMask.GetMask("Ground"))) { return; }
-
-        if (value.isPressed)
-        {
-            Debug.Log(value.isPressed);
         }
     }
 }
