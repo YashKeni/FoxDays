@@ -1,16 +1,17 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class House : MonoBehaviour
 {
-    bool hasEntered = false;
+    [SerializeField] public TMP_Text exitLeveltext;
 
-    LevelManager levelManager;
+    public bool hasEntered = false;
 
     void Start()
     {
-        levelManager = FindObjectOfType<LevelManager>();
+        exitLeveltext.enabled = false;
     }
 
     void Update()
@@ -20,10 +21,19 @@ public class House : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other != null && other is CapsuleCollider2D && !hasEntered)
+        if (other != null && other is CapsuleCollider2D)
         {
-            levelManager.LoadNextLevel();
+            // levelManager.LoadNextLevel();
+            exitLeveltext.enabled = true;
             hasEntered = true;
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D other)
+    {
+        if (other != null && other is CapsuleCollider2D)
+        {
+            exitLeveltext.enabled = false;
         }
     }
 }

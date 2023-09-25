@@ -12,16 +12,19 @@ public class Player : MonoBehaviour
     [SerializeField] float jumpSpeed = 2f;
     [SerializeField] float climbSpeed = 5f;
     [SerializeField] Vector2 deathFling = new Vector2(0f, 20f);
+    [SerializeField] float deathDelayTime = 2f;
 
     float gravScaleAtStart;
     bool isAlive = true;
+    bool hasFinishedLevel = false;
 
     Vector2 moveInput;
     Rigidbody2D myRigidBody;
     Animator animator;
     CapsuleCollider2D bodyCollider;
     BoxCollider2D footCollider;
-    GameSession gameSession;
+    LevelManager levelManager;
+    House house;
 
     // Start is called before the first frame update
     void Start()
@@ -31,7 +34,8 @@ public class Player : MonoBehaviour
         bodyCollider = GetComponent<CapsuleCollider2D>();
         footCollider = GetComponent<BoxCollider2D>();
 
-        gameSession = FindObjectOfType<GameSession>();
+        levelManager = FindObjectOfType<LevelManager>();
+        house = FindObjectOfType<House>();
 
         gravScaleAtStart = myRigidBody.gravityScale;
     }
@@ -84,6 +88,7 @@ public class Player : MonoBehaviour
 
     void Die()
     {
+
         if (bodyCollider.IsTouchingLayers(LayerMask.GetMask("Enemies")))
         {
             isAlive = false;
@@ -96,8 +101,16 @@ public class Player : MonoBehaviour
             bodyCollider.enabled = false;
             footCollider.enabled = false;
 
-            gameSession.ProcessPlayerDeath();
+            StartCoroutine(DeathDelay());
         }
+    }
+
+    IEnumerator DeathDelay()
+    {
+        GameSession gameSession = FindObjectOfType<GameSession>();
+        yield return new WaitForSeconds(deathDelayTime);
+
+        gameSession.ProcessPlayerDeath();
     }
 
     // ----------------------------------------------- Player Input Methods ----------------------------------------------
@@ -105,7 +118,11 @@ public class Player : MonoBehaviour
     void OnMove(InputValue value)
     {
         if (!isAlive) { return; }
-        moveInput = value.Get<Vector2>();
+
+        if (!hasFinishedLevel)
+        {
+            moveInput = value.Get<Vector2>();
+        }
     }
 
     void OnJump(InputValue value)
@@ -116,6 +133,18 @@ public class Player : MonoBehaviour
         if (value.isPressed)
         {
             myRigidBody.velocity += new Vector2(0f, jumpSpeed);
+        }
+    }
+
+    void OnExitLevel()
+    {
+        if (!isAlive) { return; }
+
+        if (FindObjectOfType<House>().hasEntered)
+        {
+            hasFinishedLevel = true;
+            house.exitLeveltext.enabled = false;
+            levelManager.LoadNextLevel();
         }
     }
 }
