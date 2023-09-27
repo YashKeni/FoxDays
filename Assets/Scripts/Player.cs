@@ -16,6 +16,8 @@ public class Player : MonoBehaviour
 
     [Header("Audio Settings")]
     // [SerializeField] AudioClip[] footstepSounds;
+    [SerializeField] AudioClip levelFinishSFX;
+    [SerializeField] AudioClip jumpSFX;
 
     float gravScaleAtStart;
     bool isAlive = true;
@@ -147,6 +149,8 @@ public class Player : MonoBehaviour
         if (value.isPressed)
         {
             myRigidBody.velocity += new Vector2(0f, jumpSpeed);
+            audioSource.clip = jumpSFX;
+            audioSource.Play();
         }
     }
 
@@ -158,6 +162,8 @@ public class Player : MonoBehaviour
         {
             hasFinishedLevel = true;
             house.exitLeveltext.enabled = false;
+            audioSource.clip = levelFinishSFX;
+            audioSource.Play();
             levelManager.LoadNextLevel();
         }
     }
