@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -6,11 +7,19 @@ using UnityEngine.SceneManagement;
 
 public class GameSession : MonoBehaviour
 {
-    [SerializeField] int playerLives = 3;
+    [Header("Player Stats")]
+    [SerializeField] int maxHearts = 3;
     [SerializeField] int score = 0;
 
-    [SerializeField] TMP_Text livesText;
+    [Header("GameObjects")]
+    [SerializeField] GameObject heartPrefab;
+    [SerializeField] Transform heartContainer;
+    [SerializeField] float heartSpacing = 30f;
+
+    [Header("UI")]
     [SerializeField] TMP_Text scoreText;
+
+    int currentHearts;
 
     void Awake()
     {
@@ -28,13 +37,15 @@ public class GameSession : MonoBehaviour
 
     private void Start()
     {
-        livesText.text = "Lives: " + playerLives.ToString();
         scoreText.text = "Score: " + score.ToString();
+
+        currentHearts = maxHearts;
+        UpdateHearts();
     }
 
     public void ProcessPlayerDeath()
     {
-        if (playerLives > 1)
+        if (currentHearts > 1)
         {
             TakeLife();
         }
@@ -52,11 +63,26 @@ public class GameSession : MonoBehaviour
 
     void TakeLife()
     {
-        playerLives--;
+        currentHearts--;
+        currentHearts = Mathf.Clamp(currentHearts, 0, maxHearts);
+        UpdateHearts();
+
         int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
         SceneManager.LoadScene(currentSceneIndex);
+    }
 
-        livesText.text = "Lives: " + playerLives.ToString();
+    void UpdateHearts()
+    {
+        foreach (Transform child in heartContainer)
+        {
+            Destroy(child.gameObject);
+        }
+
+        for (int i = 0; i < currentHearts; i++)
+        {
+            Vector3 heartPosition = new Vector3(i * heartSpacing, 0, 0);
+            Instantiate(heartPrefab, heartContainer).transform.localPosition = heartPosition;
+        }
     }
 
     void ResetGameSession()
