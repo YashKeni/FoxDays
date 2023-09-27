@@ -100,7 +100,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cb0bddf7a1954274a85b29e928cd26e6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gemPickupSFX: {fileID: 8300000, guid: fe8fa26f152f02f4cae9a03d5dccd3f5, type: 3}
+  gemPickupSFX: {fileID: 8300000, guid: 3316f25324399d44fb0466f1cbe8e8b1, type: 3}
+  gemValue: 100
 --- !u!95 &5525528435019570407
 Animator:
   serializedVersion: 5
