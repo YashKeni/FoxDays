@@ -14,6 +14,9 @@ public class Player : MonoBehaviour
     [SerializeField] Vector2 deathFling = new Vector2(0f, 20f);
     [SerializeField] float deathDelayTime = 2f;
 
+    [Header("Audio Settings")]
+    // [SerializeField] AudioClip[] footstepSounds;
+
     float gravScaleAtStart;
     bool isAlive = true;
     bool hasFinishedLevel = false;
@@ -25,6 +28,7 @@ public class Player : MonoBehaviour
     BoxCollider2D footCollider;
     LevelManager levelManager;
     House house;
+    AudioSource audioSource;
 
     // Start is called before the first frame update
     void Start()
@@ -33,6 +37,7 @@ public class Player : MonoBehaviour
         animator = GetComponent<Animator>();
         bodyCollider = GetComponent<CapsuleCollider2D>();
         footCollider = GetComponent<BoxCollider2D>();
+        audioSource = GetComponent<AudioSource>();
 
         levelManager = FindObjectOfType<LevelManager>();
         house = FindObjectOfType<House>();
@@ -58,6 +63,15 @@ public class Player : MonoBehaviour
         bool hasHorizontalSpeed = Mathf.Abs(myRigidBody.velocity.x) > Mathf.Epsilon;
         animator.SetBool("isRunning", hasHorizontalSpeed);
     }
+
+    // void PlayFootStep()
+    // {
+    //     if (footstepSounds.Length == 0) { return; }
+
+    //     int randomIndex = Random.Range(0, footstepSounds.Length);
+    //     audioSource.clip = footstepSounds[randomIndex];
+    //     audioSource.Play();
+    // }
 
     void FlipSideWays()
     {
