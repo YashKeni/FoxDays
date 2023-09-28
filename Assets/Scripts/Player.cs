@@ -15,7 +15,6 @@ public class Player : MonoBehaviour
     [SerializeField] float deathDelayTime = 2f;
 
     [Header("Audio Settings")]
-    // [SerializeField] AudioClip[] footstepSounds;
     [SerializeField] AudioClip levelFinishSFX;
     [SerializeField] AudioClip jumpSFX;
 
@@ -31,8 +30,8 @@ public class Player : MonoBehaviour
     LevelManager levelManager;
     House house;
     AudioSource audioSource;
+    GameSession gameSession;
 
-    // Start is called before the first frame update
     void Start()
     {
         myRigidBody = GetComponent<Rigidbody2D>();
@@ -43,19 +42,22 @@ public class Player : MonoBehaviour
 
         levelManager = FindObjectOfType<LevelManager>();
         house = FindObjectOfType<House>();
+        gameSession = FindObjectOfType<GameSession>();
 
         gravScaleAtStart = myRigidBody.gravityScale;
     }
 
-    // Update is called once per frame
     void Update()
     {
         if (!isAlive) { return; }
         Run();
         FlipSideWays();
         ClimbLadder();
-        Die();
+        Jumping();
+        TakeDamage();
     }
+
+    // ----------------------------------------------- User defined function ---------------------------------------------
 
     void Run()
     {
@@ -65,15 +67,6 @@ public class Player : MonoBehaviour
         bool hasHorizontalSpeed = Mathf.Abs(myRigidBody.velocity.x) > Mathf.Epsilon;
         animator.SetBool("isRunning", hasHorizontalSpeed);
     }
-
-    // void PlayFootStep()
-    // {
-    //     if (footstepSounds.Length == 0) { return; }
-
-    //     int randomIndex = Random.Range(0, footstepSounds.Length);
-    //     audioSource.clip = footstepSounds[randomIndex];
-    //     audioSource.Play();
-    // }
 
     void FlipSideWays()
     {
@@ -100,25 +93,58 @@ public class Player : MonoBehaviour
 
         bool hasVerticalSpeed = Mathf.Abs(myRigidBody.velocity.y) > Mathf.Epsilon;
         animator.SetBool("isClimbing", hasVerticalSpeed);
+        animator.SetBool("isJumping", false);
+    }
+
+    void Jumping()
+    {
+        if (!footCollider.IsTouchingLayers(LayerMask.GetMask("Ground")))
+        {
+            animator.SetBool("isJumping", true);
+        }
+        else
+        {
+            animator.SetBool("isJumping", false);
+        }
+    }
+
+    void TakeDamage()
+    {
+        if (bodyCollider.IsTouchingLayers(LayerMask.GetMask("Enemies", "Hazards")))
+        {
+            StartCoroutine(EnemyAttackDelay());
+
+            if (gameSession.currentHearts < 1)
+            {
+                Die();
+            }
+        }
     }
 
     void Die()
     {
+        isAlive = false;
+        animator.SetTrigger("die");
+        myRigidBody.velocity = deathFling;
 
-        if (bodyCollider.IsTouchingLayers(LayerMask.GetMask("Enemies")))
-        {
-            isAlive = false;
-            animator.SetTrigger("die");
-            myRigidBody.velocity = deathFling;
+        myRigidBody.constraints = RigidbodyConstraints2D.FreezePositionX;
+        myRigidBody.constraints = RigidbodyConstraints2D.FreezeRotation;
 
-            myRigidBody.constraints = RigidbodyConstraints2D.FreezePositionX;
-            myRigidBody.constraints = RigidbodyConstraints2D.FreezeRotation;
+        bodyCollider.enabled = false;
+        footCollider.enabled = false;
 
-            bodyCollider.enabled = false;
-            footCollider.enabled = false;
+        StartCoroutine(DeathDelay());
+    }
 
-            StartCoroutine(DeathDelay());
-        }
+    // ---------------------------------------------------- Coroutines ---------------------------------------------------
+
+    IEnumerator EnemyAttackDelay()
+    {
+        animator.SetTrigger("damage");
+        gameSession.TakeLife();
+        bodyCollider.enabled = false;
+        yield return new WaitForSeconds(deathDelayTime);
+        bodyCollider.enabled = true;
     }
 
     IEnumerator DeathDelay()
@@ -151,6 +177,7 @@ public class Player : MonoBehaviour
             myRigidBody.velocity += new Vector2(0f, jumpSpeed);
             audioSource.clip = jumpSFX;
             audioSource.Play();
+            animator.SetTrigger("jump");
         }
     }
 
