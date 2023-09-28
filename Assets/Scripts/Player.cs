@@ -110,14 +110,13 @@ public class Player : MonoBehaviour
 
     void TakeDamage()
     {
-        if (bodyCollider.IsTouchingLayers(LayerMask.GetMask("Enemies", "Hazards")))
+        if (gameSession.currentHearts < 1)
+        {
+            Die();
+        }
+        if (bodyCollider.IsTouchingLayers(LayerMask.GetMask("Enemies", "Hazards")) && isAlive)
         {
             StartCoroutine(EnemyAttackDelay());
-
-            if (gameSession.currentHearts < 1)
-            {
-                Die();
-            }
         }
     }
 
@@ -129,9 +128,6 @@ public class Player : MonoBehaviour
 
         myRigidBody.constraints = RigidbodyConstraints2D.FreezePositionX;
         myRigidBody.constraints = RigidbodyConstraints2D.FreezeRotation;
-
-        bodyCollider.enabled = false;
-        footCollider.enabled = false;
 
         StartCoroutine(DeathDelay());
     }
@@ -149,9 +145,7 @@ public class Player : MonoBehaviour
 
     IEnumerator DeathDelay()
     {
-        GameSession gameSession = FindObjectOfType<GameSession>();
         yield return new WaitForSeconds(deathDelayTime);
-
         gameSession.ProcessPlayerDeath();
     }
 

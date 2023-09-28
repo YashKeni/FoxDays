@@ -15,7 +15,7 @@ public class Void : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other != null && other.tag == "Player" && other is CapsuleCollider2D)
+        if (other != null && other.tag == "Player" && other is BoxCollider2D)
         {
             fallenInVoid = true;
             gameSession.ProcessPlayerDeath();
