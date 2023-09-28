@@ -6,6 +6,8 @@ public class Void : MonoBehaviour
 {
     GameSession gameSession;
 
+    public bool fallenInVoid = false;
+
     void Start()
     {
         gameSession = FindObjectOfType<GameSession>();
@@ -15,6 +17,7 @@ public class Void : MonoBehaviour
     {
         if (other != null && other.tag == "Player" && other is CapsuleCollider2D)
         {
+            fallenInVoid = true;
             gameSession.ProcessPlayerDeath();
         }
     }

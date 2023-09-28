@@ -19,7 +19,7 @@ public class GameSession : MonoBehaviour
     [Header("UI")]
     [SerializeField] TMP_Text scoreText;
 
-    int currentHearts;
+    public int currentHearts;
 
     void Awake()
     {
@@ -61,14 +61,18 @@ public class GameSession : MonoBehaviour
         scoreText.text = "Score: " + score.ToString();
     }
 
-    void TakeLife()
+    public void TakeLife()
     {
         currentHearts--;
         currentHearts = Mathf.Clamp(currentHearts, 0, maxHearts);
         UpdateHearts();
 
-        int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
-        SceneManager.LoadScene(currentSceneIndex);
+        if (FindObjectOfType<Void>().fallenInVoid == true)
+        {
+            int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
+            SceneManager.LoadScene(currentSceneIndex);
+        }
+
     }
 
     void UpdateHearts()
