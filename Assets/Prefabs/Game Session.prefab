@@ -447,9 +447,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3535ca5e6f3585845aa3c09a7e0dbf0f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHearts: 2
+  maxHearts: 3
   score: 0
   heartPrefab: {fileID: 5545256547244885945, guid: ce884fdf1bd27724191ee0962fdff4e5, type: 3}
   heartContainer: {fileID: 8842503686220275468}
   heartSpacing: 150
   scoreText: {fileID: 1109441850}
+  currentHearts: 0
