@@ -61,11 +61,19 @@ public class Player : MonoBehaviour
 
     void Run()
     {
-        Vector2 playerVelocity = new(moveInput.x * runSpeed, myRigidBody.velocity.y);
-        myRigidBody.velocity = playerVelocity;
+        if (!hasFinishedLevel)
+        {
+            Vector2 playerVelocity = new(moveInput.x * runSpeed, myRigidBody.velocity.y);
+            myRigidBody.velocity = playerVelocity;
 
-        bool hasHorizontalSpeed = Mathf.Abs(myRigidBody.velocity.x) > Mathf.Epsilon;
-        animator.SetBool("isRunning", hasHorizontalSpeed);
+            bool hasHorizontalSpeed = Mathf.Abs(myRigidBody.velocity.x) > Mathf.Epsilon;
+            animator.SetBool("isRunning", hasHorizontalSpeed);
+        }
+        else
+        {
+            myRigidBody.velocity = new Vector2(0f, 0f);
+            animator.SetBool("isRunning", false);
+        }
     }
 
     void FlipSideWays()
@@ -164,7 +172,7 @@ public class Player : MonoBehaviour
     void OnJump(InputValue value)
     {
         if (!isAlive) { return; }
-        if (!footCollider.IsTouchingLayers(LayerMask.GetMask("Ground"))) { return; }
+        if (!footCollider.IsTouchingLayers(LayerMask.GetMask("Ground", "Ladder"))) { return; }
 
         if (value.isPressed)
         {
