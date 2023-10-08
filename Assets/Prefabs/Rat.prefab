@@ -106,6 +106,7 @@ MonoBehaviour:
   moveSpeed: -2
   killingElement: {fileID: 6972765795975105263}
   deathSFX: {fileID: 8300000, guid: 1d62e3264ee1ed74193cb00cccfdc7f5, type: 3}
+  scorePoints: 500
 --- !u!50 &2696153234090167748
 Rigidbody2D:
   serializedVersion: 4
