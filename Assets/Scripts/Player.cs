@@ -1,9 +1,10 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
-using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class Player : MonoBehaviour
 {
@@ -13,6 +14,9 @@ public class Player : MonoBehaviour
     [SerializeField] float climbSpeed = 5f;
     [SerializeField] Vector2 deathFling = new Vector2(0f, 20f);
     [SerializeField] float deathDelayTime = 2f;
+
+    [Header("Joystick Controls")]
+    [SerializeField] Joystick joystick;
 
     [Header("Audio Settings")]
     [SerializeField] AudioClip levelFinishSFX;
@@ -63,7 +67,7 @@ public class Player : MonoBehaviour
     {
         if (!hasFinishedLevel)
         {
-            Vector2 playerVelocity = new(moveInput.x * runSpeed, myRigidBody.velocity.y);
+            Vector2 playerVelocity = new(joystick.Horizontal * runSpeed, myRigidBody.velocity.y);
             myRigidBody.velocity = playerVelocity;
 
             bool hasHorizontalSpeed = Mathf.Abs(myRigidBody.velocity.x) > Mathf.Epsilon;
@@ -95,13 +99,24 @@ public class Player : MonoBehaviour
             return;
         }
 
-        Vector2 climbVelocity = new(myRigidBody.velocity.x, moveInput.y * climbSpeed);
+        Vector2 climbVelocity = new(myRigidBody.velocity.x, joystick.Vertical * climbSpeed);
         myRigidBody.velocity = climbVelocity;
         myRigidBody.gravityScale = 0;
 
         bool hasVerticalSpeed = Mathf.Abs(myRigidBody.velocity.y) > Mathf.Epsilon;
         animator.SetBool("isClimbing", hasVerticalSpeed);
         animator.SetBool("isJumping", false);
+    }
+
+    public void Jump()
+    {
+        if (!isAlive) { return; }
+        if (!footCollider.IsTouchingLayers(LayerMask.GetMask("Ground", "Ladder"))) { return; }
+
+        myRigidBody.velocity += new Vector2(0f, jumpSpeed);
+        audioSource.clip = jumpSFX;
+        audioSource.Play();
+        animator.SetTrigger("jump");
     }
 
     void Jumping()
@@ -113,6 +128,20 @@ public class Player : MonoBehaviour
         else
         {
             animator.SetBool("isJumping", false);
+        }
+    }
+
+    public void ExitLevel()
+    {
+        if (!isAlive) { return; }
+
+        if (FindObjectOfType<House>().hasEntered)
+        {
+            hasFinishedLevel = true;
+            house.exitLeveltext.enabled = false;
+            audioSource.clip = levelFinishSFX;
+            audioSource.Play();
+            levelManager.LoadNextLevel();
         }
     }
 
@@ -155,45 +184,5 @@ public class Player : MonoBehaviour
     {
         yield return new WaitForSeconds(deathDelayTime);
         gameSession.ProcessPlayerDeath();
-    }
-
-    // ----------------------------------------------- Player Input Methods ----------------------------------------------
-
-    void OnMove(InputValue value)
-    {
-        if (!isAlive) { return; }
-
-        if (!hasFinishedLevel)
-        {
-            moveInput = value.Get<Vector2>();
-        }
-    }
-
-    void OnJump(InputValue value)
-    {
-        if (!isAlive) { return; }
-        if (!footCollider.IsTouchingLayers(LayerMask.GetMask("Ground", "Ladder"))) { return; }
-
-        if (value.isPressed)
-        {
-            myRigidBody.velocity += new Vector2(0f, jumpSpeed);
-            audioSource.clip = jumpSFX;
-            audioSource.Play();
-            animator.SetTrigger("jump");
-        }
-    }
-
-    void OnExitLevel()
-    {
-        if (!isAlive) { return; }
-
-        if (FindObjectOfType<House>().hasEntered)
-        {
-            hasFinishedLevel = true;
-            house.exitLeveltext.enabled = false;
-            audioSource.clip = levelFinishSFX;
-            audioSource.Play();
-            levelManager.LoadNextLevel();
-        }
     }
 }
