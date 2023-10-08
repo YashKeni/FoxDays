@@ -27,6 +27,5 @@ public class LevelManager : MonoBehaviour
 
         FindObjectOfType<ScenePersist>().ResetPersist();
         SceneManager.LoadScene(nextSceneIndex);
-
     }
 }
