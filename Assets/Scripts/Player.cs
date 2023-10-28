@@ -153,7 +153,7 @@ public class Player : MonoBehaviour
         }
         if (bodyCollider.IsTouchingLayers(LayerMask.GetMask("Enemies", "Hazards")) && isAlive)
         {
-            StartCoroutine(EnemyAttackDelay());
+            StartCoroutine(TakeAttackDelay());
         }
     }
 
@@ -171,11 +171,12 @@ public class Player : MonoBehaviour
 
     // ---------------------------------------------------- Coroutines ---------------------------------------------------
 
-    IEnumerator EnemyAttackDelay()
+    IEnumerator TakeAttackDelay()
     {
         animator.SetTrigger("damage");
         gameSession.TakeLife();
         bodyCollider.enabled = false;
+        myRigidBody.velocity = deathFling;
         yield return new WaitForSeconds(deathDelayTime);
         bodyCollider.enabled = true;
     }

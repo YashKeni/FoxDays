@@ -6,7 +6,6 @@ public class Gems : MonoBehaviour
 {
     [SerializeField] AudioClip gemPickupSFX;
     [SerializeField] int gemValue = 100;
-    [SerializeField] float animDelay = 0.1f;
 
     bool hasCollected = false;
 
