@@ -75,7 +75,7 @@ public class GameSession : MonoBehaviour
 
     }
 
-    void UpdateHearts()
+    public void UpdateHearts()
     {
         foreach (Transform child in heartContainer)
         {
