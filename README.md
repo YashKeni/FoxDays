@@ -1,5 +1,5 @@
 # FoxDays
 A Platformer based 2d Pixel Art game
-![1](https://github.com/YashKeni/FoxDays/assets/86158223/e2e2ab28-e679-4cd9-9511-bed4c68b28b5)
-![2](https://github.com/YashKeni/FoxDays/assets/86158223/390e06e1-a338-41d1-95b6-f26a9dcffec8)
 
+![1](https://github.com/YashKeni/FoxDays/assets/86158223/fce32729-9a0a-4d16-89f9-c3bcd6b1194e)
+![2](https://github.com/YashKeni/FoxDays/assets/86158223/6031a439-8148-4884-a675-6c5c45f1e253)
