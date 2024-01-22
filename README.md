@@ -1,6 +1,6 @@
 # FoxDays
-A Platformer based 2d Pixel Art game
-Assets used are from 'Sunny Land' by Ansimuz on Unity Asset Store (Link below)
+!A Platformer based 2d Pixel Art game
+!Assets used are from 'Sunny Land' by Ansimuz on Unity Asset Store (Link below)
 https://assetstore.unity.com/packages/2d/characters/sunny-land-103349
 
 ![Screenshot 2024-01-22 143944](https://github.com/YashKeni/FoxDays/assets/86158223/c0551ed5-375f-42b2-b201-3aaf70304807)
