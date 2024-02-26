@@ -6,7 +6,7 @@ using UnityEngine;
 public class Enemy : MonoBehaviour
 {
     [Header("Enemy Settings")]
-    [SerializeField] float moveSpeed = 5f;
+    [SerializeField] float moveSpeed;
     [SerializeField] GameObject killingElement;
     [SerializeField] AudioClip deathSFX;
     [SerializeField] int scorePoints = 500;
@@ -29,7 +29,7 @@ public class Enemy : MonoBehaviour
     {
         if (!isDead)
         {
-            myRigidBody.velocity = new Vector2(moveSpeed, 0f);
+            myRigidBody.velocity = new Vector2(-moveSpeed, 0f);
         }
     }
 
